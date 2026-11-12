@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hanssens · Guest Experience</title>
+<meta name="description" content="Mystery-guest visits and in-depth analysis for restaurants, hotels, cafés and snack bars in Porto.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0A1252;
+    --ink-2:#070D3C;
+    --ink-3:#101A6A;
+    --white:#F5F7FF;
+    --mist:#CDD4F0;
+    --muted:#9AA6D6;
+    --hair:rgba(245,247,255,0.13);
+    --hair-soft:rgba(245,247,255,0.07);
+    --steel:#A6B2E0;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+
+  /* LANGUAGE SWITCH */
+  html[data-lang="en"] [data-l="pt"],
+  html[data-lang="pt"] [data-l="en"]{display:none!important}
+
+  body{
+    background:var(--ink);
+    color:var(--white);
+    font-family:"Hanken Grotesk",system-ui,sans-serif;
+    font-weight:300;
+    font-size:18px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    position:relative;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    transform-origin:50% 30%;
+    animation:breathe 13s ease-in-out infinite alternate;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 32%, rgba(36,54,150,0.45), transparent 62%),
+      radial-gradient(ellipse 60% 50% at 90% 8%, rgba(26,40,120,0.24), transparent 55%);
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px;position:relative;z-index:1}
+  .label{
+    font-size:11px;letter-spacing:0.34em;text-transform:uppercase;
+    color:rgba(245,247,252,0.42);font-weight:400;
+  }
+  h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;line-height:1.06;letter-spacing:0.005em}
+  em{font-style:italic}
+  a{color:inherit;text-decoration:none}
+
+  /* NAV */
+  nav{position:absolute;top:0;left:0;right:0;z-index:20}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:92px}
+  .nav-right{display:flex;align-items:center;gap:30px}
+  .brand{font-family:"Cormorant Garamond",serif;font-size:25px;font-weight:500;letter-spacing:0.32em;padding-left:0.32em}
+  .mono{font-family:"Cormorant Garamond",serif;font-weight:500;line-height:1;display:inline-block;color:var(--white);text-shadow:0 0 18px rgba(60,82,180,0.4)}
+  .mono .a{font-size:30px;letter-spacing:0}
+  .mono .h{font-size:15px;vertical-align:0.85em;margin-left:0.04em}
+  .nav-link{font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--mist);position:relative;padding-bottom:4px}
+  .nav-link::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--white);transition:width .4s ease}
+  .nav-link:hover::after{width:100%}
+  .lang{display:flex;align-items:center;gap:2px;font-size:11px;letter-spacing:0.2em}
+  .lang button{
+    background:none;border:none;cursor:pointer;font:inherit;letter-spacing:inherit;
+    color:var(--muted);padding:6px 8px;border-bottom:1px solid transparent;transition:color .3s,border-color .3s;
+  }
+  .lang button[aria-pressed="true"]{color:var(--white);border-bottom-color:rgba(245,247,255,0.6)}
+  .lang button:hover{color:var(--white)}
+  .lang .sep{color:var(--hair);user-select:none}
+
+  /* HERO */
+  .hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 80px;position:relative;overflow:hidden}
+  .hero-mark{position:absolute;top:50%;right:-6%;transform:translateY(-50%);z-index:0;pointer-events:none;
+    font-family:"Cormorant Garamond",serif;font-weight:400;line-height:0.8;color:#fff;opacity:0.045;
+    font-size:min(58vw,760px);white-space:nowrap;user-select:none}
+  .hero-mark sup{font-size:0.42em;vertical-align:0.95em}
+  .hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:80px;align-items:center;width:100%}
+  .hero .label{margin-bottom:30px;display:block}
+  .hero .label,.hero h1,.hero .lead,.hero-cta,.hero .index{animation:riseIn 1.1s cubic-bezier(.2,.7,.2,1) both}
+  .hero .label{animation-delay:.15s}
+  .hero h1{animation-delay:.3s}
+  .hero .lead{animation-delay:.5s}
+  .hero-cta{animation-delay:.68s}
+  .hero .index{animation-delay:.58s}
+  @keyframes riseIn{from{opacity:0;transform:translateY(24px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+  @keyframes breathe{from{opacity:.78;transform:scale(1)}to{opacity:1;transform:scale(1.08)}}
+  .hero h1{font-size:clamp(54px,8vw,104px);letter-spacing:-0.005em;margin-bottom:34px;text-shadow:0 0 34px rgba(50,72,170,0.35)}
+  .hero h1 em{color:var(--mist)}
+  .lead{font-size:19px;color:var(--mist);font-weight:300;max-width:40ch;line-height:1.7}
+  .hero-cta{margin-top:46px;display:inline-flex;align-items:center;gap:14px}
+  .cta-line{
+    font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:var(--white);
+    border-bottom:1px solid rgba(245,247,252,0.35);padding-bottom:7px;transition:border-color .4s,letter-spacing .4s;
+  }
+  .hero-cta:hover .cta-line{border-color:var(--white);letter-spacing:0.26em}
+  .arrow{font-size:15px;transition:transform .4s ease}
+  .hero-cta:hover .arrow{transform:translateX(6px)}
+
+  /* INDEX SIGNATURE */
+  .index{border-top:1px solid var(--hair)}
+  .index-head{display:flex;justify-content:space-between;align-items:baseline;padding:18px 0 22px}
+  .index-head .t{font-family:"Cormorant Garamond",serif;font-size:22px;font-weight:500;letter-spacing:0.02em}
+  .index-head .s{font-size:10.5px;letter-spacing:0.24em;text-transform:uppercase;color:var(--muted)}
+  .row{padding:13px 0;border-top:1px solid var(--hair-soft);transition:padding-left .4s ease}
+  .row:hover{padding-left:10px}
+  .row:hover .n{color:var(--white)}
+  .row .n{transition:color .4s ease}
+  .row-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
+  .row-top .n{font-size:13px;letter-spacing:0.16em;text-transform:uppercase;color:var(--mist);font-weight:400}
+  .row-top .v{font-family:"Cormorant Garamond",serif;font-size:21px;font-weight:500;color:var(--white)}
+  .track{height:2px;background:rgba(245,247,255,0.12);overflow:hidden}
+  .track i{display:block;height:100%;width:0;background:linear-gradient(90deg,#4358C0,#DCE2F8);transition:width 1.4s cubic-bezier(.22,.7,.2,1)}
+  .row.dim .v{color:var(--steel)}
+  .row.dim .track i{background:linear-gradient(90deg,#313E92,#8F9BCF)}
+
+  /* SECTIONS */
+  section{padding:120px 0;position:relative}
+  .sec-head{margin-bottom:60px}
+  .sec-head .label{display:block;margin-bottom:26px}
+  h2.title{font-size:clamp(34px,5vw,58px);max-width:16ch;font-weight:300}
+  h2.title em{color:var(--mist)}
+
+  /* PROBLEM */
+  .problem{border-top:1px solid var(--hair)}
+  .prose{max-width:60ch}
+  .prose p{font-size:21px;color:var(--mist);font-weight:300;line-height:1.7}
+  .prose p + p{margin-top:26px}
+  .prose .pull{color:var(--white)}
+
+  /* WHY */
+  .why{border-top:1px solid var(--hair);background:var(--ink-2)}
+  .why-row{display:grid;grid-template-columns:0.9fr 1.1fr;gap:50px;padding:40px 0;border-top:1px solid var(--hair-soft);align-items:baseline}
+  .why-row:first-of-type{border-top:none}
+  .why-row .k{font-size:12px;letter-spacing:0.24em;text-transform:uppercase;color:var(--steel);font-weight:400}
+  .why-row h3{font-family:"Cormorant Garamond",serif;font-size:27px;font-weight:400;color:var(--white);margin-bottom:12px}
+  .why-row p{font-size:16.5px;color:var(--muted);font-weight:300;line-height:1.65}
+
+  /* OFFER */
+  .offer{border-top:1px solid var(--hair)}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:48px;padding:44px 0;border-top:1px solid var(--hair-soft);align-items:start;transition:padding-left .4s ease}
+  .step:first-of-type{border-top:none}
+  .step:hover{padding-left:14px}
+  .step .rn{font-family:"Cormorant Garamond",serif;font-size:30px;font-weight:300;color:var(--steel);font-style:italic;min-width:48px}
+  .step h3{font-family:"Cormorant Garamond",serif;font-size:30px;font-weight:400;color:var(--white);margin-bottom:14px}
+  .step p{font-size:17px;color:var(--mist);font-weight:300;max-width:54ch;line-height:1.65}
+  .step .meta{display:block;margin-top:16px;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted)}
+
+  /* SEGMENTS */
+  .segments{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:-20px;margin-bottom:50px}
+  .segments span{font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:var(--steel)}
+
+  /* CTA */
+  .cta{border-top:1px solid var(--hair);text-align:center;padding:150px 0}
+  .cta .label{display:block;margin-bottom:34px}
+  .cta h2{font-size:clamp(40px,6vw,76px);font-weight:300;max-width:18ch;margin:0 auto 26px}
+  .cta h2 em{color:var(--mist)}
+  .cta p{color:var(--muted);max-width:44ch;margin:0 auto 48px;font-size:17px;font-weight:300}
+  .cta-btn{
+    display:inline-flex;align-items:center;gap:14px;font-size:13px;letter-spacing:0.24em;text-transform:uppercase;
+    color:var(--white);border:1px solid rgba(245,247,252,0.28);padding:20px 40px;transition:background .5s,border-color .5s,color .5s;
+  }
+  .cta-btn:hover{background:var(--white);color:var(--ink);border-color:var(--white)}
+  .cta .mail{display:block;margin-top:28px;font-size:13px;letter-spacing:0.12em;color:var(--muted)}
+  .cta .mail a{border-bottom:1px solid var(--hair)}
+  .cta .mail a:hover{color:var(--white);border-color:var(--white)}
+
+  /* FOOTER */
+  footer{padding:54px 0;border-top:1px solid var(--hair)}
+  .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+  .foot-inner .brand{font-size:19px}
+  .foot-meta{font-size:11px;letter-spacing:0.22em;color:var(--muted);text-transform:uppercase}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(26px);filter:blur(6px);transition:opacity 1s ease,transform 1s ease,filter 1s ease}
+  .reveal.in{opacity:1;transform:none;filter:none}
+
+  /* STATEMENT */
+  .statement{border-top:1px solid var(--hair);text-align:center;padding:150px 0}
+  .statement .q{font-family:"Cormorant Garamond",serif;font-weight:300;font-size:clamp(30px,4.6vw,52px);line-height:1.28;max-width:20ch;margin:0 auto;color:var(--white)}
+  .statement .q em{color:var(--mist)}
+  .statement .by{display:block;margin-top:34px;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted)}
+
+  /* RESPONSIVE */
+  @media(max-width:880px){
+    .hero-grid{grid-template-columns:1fr;gap:56px}
+    .hero{min-height:auto;padding:140px 0 90px}
+    section{padding:88px 0}
+    .why-row,.step{grid-template-columns:1fr;gap:14px}
+    .step .rn{font-size:24px}
+  }
+  @media(max-width:430px){
+    body{font-size:17px}
+    .wrap{padding:0 22px}
+    .nav-inner{height:76px}
+    .nav-right{gap:16px}
+    .lang button{padding:6px 5px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none;filter:none}
+    .track i{transition:none!important}
+    body::before{opacity:1}
+  }
+  :focus-visible{outline:1px solid var(--white);outline-offset:4px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <div class="brand"><span class="mono"><span class="a">A</span><span class="h">H</span></span></div>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-set="en" aria-pressed="true">EN</button>
+        <span class="sep">/</span>
+        <button type="button" data-set="pt" aria-pressed="false">PT</button>
+      </div>
+      <a class="nav-link" href="#contact"><span data-l="en">Enquire</span><span data-l="pt">Contactar</span></a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-mark">A<sup>H</sup></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="label"><span data-l="en">Guest Experience · Porto</span><span data-l="pt">Experiência do Cliente · Porto</span></span>
+      <h1>
+        <span data-l="en">The guest experience, <em>measured.</em></span>
+        <span data-l="pt">A experiência do cliente, <em>medida.</em></span>
+      </h1>
+      <p class="lead">
+        <span data-l="en">I help restaurants, hotels, cafés and snack bars turn the feeling of a great visit into something precise, scored and improvable, built on fifteen years in hospitality, including three in Portuguese tourism, in five languages.</span>
+        <span data-l="pt">Ajudo restaurantes, hotéis, cafés e snack-bares a transformar a sensação de uma boa visita em algo preciso, pontuado e melhorável, com base em quinze anos de hospitalidade, incluindo três no turismo em Portugal, em cinco línguas.</span>
+      </p>
+      <a class="hero-cta" href="#offer"><span class="cta-line"><span data-l="en">Begin with an audit</span><span data-l="pt">Comece por uma auditoria</span></span><span class="arrow">→</span></a>
+    </div>
+    <div class="index" id="index">
+      <div class="index-head">
+        <span class="t"><span data-l="en">Satisfaction Index</span><span data-l="pt">Índice de Satisfação</span></span>
+        <span class="s"><span data-l="en">Sample</span><span data-l="pt">Exemplo</span></span>
+      </div>
+      <div class="row" data-score="72"><div class="row-top"><span class="n"><span data-l="en">First welcome</span><span data-l="pt">Acolhimento</span></span><span class="v">7.2</span></div><div class="track"><i></i></div></div>
+      <div class="row" data-score="81"><div class="row-top"><span class="n"><span data-l="en">Ambiance</span><span data-l="pt">Ambiente</span></span><span class="v">8.1</span></div><div class="track"><i></i></div></div>
+      <div class="row" data-score="78"><div class="row-top"><span class="n"><span data-l="en">The product</span><span data-l="pt">O produto</span></span><span class="v">7.8</span></div><div class="track"><i></i></div></div>
+      <div class="row dim" data-score="56"><div class="row-top"><span class="n"><span data-l="en">Friction points</span><span data-l="pt">Pontos de fricção</span></span><span class="v">5.6</span></div><div class="track"><i></i></div></div>
+      <div class="row dim" data-score="49"><div class="row-top"><span class="n"><span data-l="en">Digital presence</span><span data-l="pt">Presença digital</span></span><span class="v">4.9</span></div><div class="track"><i></i></div></div>
+    </div>
+  </div>
+</header>
+
+<section class="problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label"><span data-l="en">The problem</span><span data-l="pt">O problema</span></span>
+      <h2 class="title">
+        <span data-l="en">Most owners run on instinct <em>and a pile of reviews that only tell part of the story.</em></span>
+        <span data-l="pt">A maioria dos proprietários decide por instinto <em>e por avaliações que só contam parte da história.</em></span>
+      </h2>
+    </div>
+    <div class="prose">
+      <p data-l="en">Your feedback is scattered across Booking, Google and TripAdvisor. <span class="pull">The distance between a 9.1 and a 7.8 is real money</span>, yet a review tells you what disappointed a guest, rarely why, and never what happened in the minutes before.</p>
+      <p data-l="pt">As suas avaliações estão dispersas pelo Booking, Google e TripAdvisor. <span class="pull">A diferença entre um 9,1 e um 7,8 é dinheiro real</span>, mas uma avaliação diz o que desiludiu o cliente, raramente porquê, e nunca o que aconteceu nos minutos anteriores.</p>
+      <p data-l="en">You feel where things slip. You simply cannot see it clearly enough to fix it on purpose. I make it visible, scored, and ranked, so you act on what truly moves bookings, not the loudest complaint.</p>
+      <p data-l="pt">Sente onde as coisas falham. Só não consegue ver com clareza suficiente para corrigir de forma intencional. Eu torno tudo visível, pontuado e hierarquizado, para que atue no que realmente mexe nas reservas, e não na queixa mais ruidosa.</p>
+    </div>
+  </div>
+</section>
+
+<section class="statement">
+  <div class="wrap">
+    <p class="q">
+      <span data-l="en">What a guest remembers is a feeling. <em>What you can improve is everything underneath it.</em></span>
+      <span data-l="pt">O que um cliente recorda é uma sensação. <em>O que pode melhorar é tudo o que está por baixo dela.</em></span>
+    </p>
+    <span class="by"><span data-l="en">The Hanssens method</span><span data-l="pt">O método Hanssens</span></span>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label"><span data-l="en">Why me</span><span data-l="pt">Porquê eu</span></span>
+      <h2 class="title">
+        <span data-l="en">An insider who can <em>also count.</em></span>
+        <span data-l="pt">Alguém de dentro que <em>também sabe medir.</em></span>
+      </h2>
+    </div>
+    <div class="why-row">
+      <div class="k"><span data-l="en">In Portugal</span><span data-l="pt">Em Portugal</span></div>
+      <div>
+        <h3><span data-l="en">Three years in Portuguese tourism.</span><span data-l="pt">Três anos no turismo em Portugal.</span></h3>
+        <p data-l="en">I work every day with the international visitors who fill Porto's restaurants and hotels. I know what they expect, and what makes them write a five-star review.</p>
+        <p data-l="pt">Trabalho todos os dias com os visitantes internacionais que enchem os restaurantes e hotéis do Porto. Sei o que esperam e o que os leva a deixar uma avaliação de cinco estrelas.</p>
+      </div>
+    </div>
+    <div class="why-row">
+      <div class="k"><span data-l="en">Fifteen years</span><span data-l="pt">Quinze anos</span></div>
+      <div>
+        <h3><span data-l="en">Premium events and hospitality.</span><span data-l="pt">Eventos e hotelaria premium.</span></h3>
+        <p data-l="en">Over a decade coordinating VIP events and high-touch hospitality in Brussels. I know what excellence costs, and how it quietly breaks.</p>
+        <p data-l="pt">Mais de uma década a coordenar eventos VIP e hospitalidade de alto nível em Bruxelas. Sei quanto custa a excelência e como ela se quebra em silêncio.</p>
+      </div>
+    </div>
+    <div class="why-row">
+      <div class="k"><span data-l="en">Five languages</span><span data-l="pt">Cinco línguas</span></div>
+      <div>
+        <h3><span data-l="en">I visit as your guests do.</span><span data-l="pt">Visito como os seus clientes visitam.</span></h3>
+        <p data-l="en">English, French, Dutch, Spanish, Portuguese. I can arrive as the typical foreign guest who fills your tables, and see how your team welcomes, advises and wins them back.</p>
+        <p data-l="pt">Inglês, francês, neerlandês, espanhol e português. Posso chegar como o cliente estrangeiro típico que enche as suas mesas e ver como a equipa o recebe, aconselha e conquista.</p>
+      </div>
+    </div>
+    <div class="why-row">
+      <div class="k"><span data-l="en">Hands-on</span><span data-l="pt">Mãos à obra</span></div>
+      <div>
+        <h3><span data-l="en">I do not leave a slideshow.</span><span data-l="pt">Não deixo apenas uma apresentação.</span></h3>
+        <p data-l="en">The report is the beginning. Every finding comes with a clear, prioritised recommendation you can act on straight away.</p>
+        <p data-l="pt">O relatório é o início. Cada observação vem com uma recomendação clara e priorizada, aplicável de imediato.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="offer" id="offer">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label"><span data-l="en">How it works</span><span data-l="pt">Como funciona</span></span>
+      <h2 class="title">
+        <span data-l="en">Four ways in. <em>Begin with one.</em></span>
+        <span data-l="pt">Quatro formas de começar. <em>Escolha uma.</em></span>
+      </h2>
+    </div>
+    <div class="segments">
+      <span data-l="en">Restaurants</span><span data-l="pt">Restaurantes</span>
+      <span data-l="en">Hotels &amp; guesthouses</span><span data-l="pt">Hotéis &amp; alojamentos</span>
+      <span data-l="en">Cafés &amp; snack bars</span><span data-l="pt">Cafés &amp; snack-bares</span>
+    </div>
+
+    <div class="step"><span class="rn">I</span><div>
+      <h3><span data-l="en">Mystery Guest Visit</span><span data-l="pt">Visita Cliente Mistério</span></h3>
+      <p data-l="en">One anonymous visit, measured against every dimension of the guest experience: welcome, waiting times, service, the space, the farewell. You receive a complete scored report, with every observation and every improvement ranked by impact.</p>
+      <p data-l="pt">Uma visita anónima, avaliada em todas as dimensões da experiência do cliente: acolhimento, tempos de espera, serviço, espaço e despedida. Recebe um relatório completo e pontuado, com todas as observações e todas as melhorias ordenadas por impacto.</p>
+      <span class="meta"><span data-l="en">Restaurants &amp; cafés from €190 · hotels from €490 (overnight stay) · start here</span><span data-l="pt">Restaurantes e cafés a partir de 190 € · hotéis a partir de 490 € (com estadia) · comece aqui</span></span>
+    </div></div>
+
+    <div class="step"><span class="rn">II</span><div>
+      <h3><span data-l="en">Dual Audit</span><span data-l="pt">Auditoria Dupla</span></h3>
+      <p data-l="en">Two anonymous visits, thirty days apart. The first establishes the diagnosis; the second measures what changed. Two complete reports and a clear before-and-after, so progress is proven, not assumed.</p>
+      <p data-l="pt">Duas visitas anónimas, com trinta dias de intervalo. A primeira estabelece o diagnóstico; a segunda mede o que mudou. Dois relatórios completos e um antes-e-depois claro, para que a evolução seja comprovada, não presumida.</p>
+      <span class="meta"><span data-l="en">Recommended · two visits</span><span data-l="pt">Recomendado · duas visitas</span></span>
+    </div></div>
+
+    <div class="step"><span class="rn">III</span><div>
+      <h3><span data-l="en">In-Depth Analysis</span><span data-l="pt">Análise Profunda</span></h3>
+      <p data-l="en">Half a day of on-site observation during peak service, with management informed and your team left undisturbed. Combined with an in-depth analysis of your Google, TripAdvisor and Booking reviews, a review of your digital presence and a benchmark against three competitors. Delivered as a strategic report and a one-hour debrief with you.</p>
+      <p data-l="pt">Meio dia de observação no local durante o serviço de maior movimento, com a direção informada e sem interferir com a equipa. Junta-se uma análise aprofundada das avaliações no Google, TripAdvisor e Booking, uma análise da presença digital e uma comparação com três concorrentes. Entregue como relatório estratégico e uma reunião de uma hora consigo.</p>
+      <span class="meta"><span data-l="en">Half a day on site · strategic report</span><span data-l="pt">Meio dia no local · relatório estratégico</span></span>
+    </div></div>
+
+    <div class="step"><span class="rn">IV</span><div>
+      <h3><span data-l="en">Monthly Index</span><span data-l="pt">Índice Mensal</span></h3>
+      <p data-l="en">One anonymous visit every month and a satisfaction index that tracks every dimension over time. You see what is improving, what is slipping, and act before small slips become poor reviews. The best value per visit.</p>
+      <p data-l="pt">Uma visita anónima por mês e um índice de satisfação que acompanha cada dimensão ao longo do tempo. Vê o que melhora, o que falha, e atua antes que pequenas falhas se tornem más avaliações. O melhor valor por visita.</p>
+      <span class="meta"><span data-l="en">Monthly · minimum three months</span><span data-l="pt">Mensal · mínimo três meses</span></span>
+    </div></div>
+
+    <div class="step guarantee"><span class="rn">✓</span><div>
+      <h3><span data-l="en">The guarantee</span><span data-l="pt">A garantia</span></h3>
+      <p data-l="en">If your first report does not give you at least five improvements you want to act on, you do not pay.</p>
+      <p data-l="pt">Se o primeiro relatório não lhe trouxer pelo menos cinco melhorias que queira aplicar, não paga.</p>
+    </div></div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="wrap">
+    <span class="label"><span data-l="en">Begin</span><span data-l="pt">Começar</span></span>
+    <h2>
+      <span data-l="en">One visit. One property. <em>See what your guests truly feel.</em></span>
+      <span data-l="pt">Uma visita. Um espaço. <em>Veja o que os seus clientes realmente sentem.</em></span>
+    </h2>
+    <p data-l="en">Start with a single mystery-guest visit or an in-depth analysis. No commitment, and covered by the guarantee. Decide from there.</p>
+    <p data-l="pt">Comece com uma única visita de cliente mistério ou uma análise profunda. Sem compromisso e coberto pela garantia. Decida a partir daí.</p>
+    <a class="cta-btn" data-l="en" href="mailto:eywaprojects@gmail.com?subject=Mystery%20guest%20visit">Enquire <span>→</span></a>
+    <a class="cta-btn" data-l="pt" href="mailto:eywaprojects@gmail.com?subject=Visita%20cliente%20mist%C3%A9rio">Contactar <span>→</span></a>
+    <span class="mail"><a href="mailto:eywaprojects@gmail.com">eywaprojects@gmail.com</a></span>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="brand"><span class="mono"><span class="a">A</span><span class="h">H</span></span><span style="font-size:18px;letter-spacing:0.3em;margin-left:0.9em;vertical-align:0.18em">HANSSENS</span></div>
+    <div class="foot-meta">Porto, Portugal · EN / FR / NL / ES / PT</div>
+  </div>
+</footer>
+
+<script>
+  // Language: ?lang=pt / ?lang=en in the URL wins, then saved choice, then browser language.
+  (function(){
+    const root = document.documentElement;
+    const titles = { en: 'Hanssens · Guest Experience', pt: 'Hanssens · Experiência do Cliente' };
+    function setLang(l){
+      if(l !== 'pt') l = 'en';
+      root.setAttribute('data-lang', l);
+      root.setAttribute('lang', l === 'pt' ? 'pt-PT' : 'en');
+      document.title = titles[l];
+      document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.set === l ? 'true' : 'false'));
+      try { localStorage.setItem('ah-lang', l); } catch(e) {}
+    }
+    let initial = null;
+    try { initial = new URLSearchParams(location.search).get('lang'); } catch(e) {}
+    if(!initial){ try { initial = localStorage.getItem('ah-lang'); } catch(e) {} }
+    if(!initial){ initial = (navigator.language || '').toLowerCase().startsWith('pt') ? 'pt' : 'en'; }
+    setLang(initial);
+    document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.set)));
+  })();
+
+  const index = document.getElementById('index');
+  const fill = () => index.querySelectorAll('.row').forEach((r,i)=>{
+    setTimeout(()=>{ r.querySelector('.track i').style.width = r.getAttribute('data-score')+'%'; }, 180*i + 250);
+  });
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    index.querySelectorAll('.row').forEach(r=>{ r.querySelector('.track i').style.width = r.getAttribute('data-score')+'%'; });
+  } else {
+    const io=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){fill();o.disconnect();}})},{threshold:.4});
+    io.observe(index);
+  }
+  document.querySelectorAll('section .wrap > *').forEach(el=>el.classList.add('reveal'));
+  const ro=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
